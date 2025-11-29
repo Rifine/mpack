@@ -1,0 +1,6 @@
+use crate::format::MsgPackFormat;
+
+pub trait MsgPack {
+    fn pack_format(&self) -> MsgPackFormat;
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()>;
+}
