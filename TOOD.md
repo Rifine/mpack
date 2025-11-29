@@ -1,15 +1,21 @@
 # impl MsgPack for T
 - [x] bool
 - [ ] nil
-  - [ ] `Option::None`
+  - [x] `Option::None`
   - [ ] `nullptr`
 - [x] unsigned int(u8, u16, u32, u64)
 - [x] signed int(i8, i16, i32, i64)
 - [ ] float
 - [ ] string
+  - [x] `String`
+  - [ ] `str`
 - [ ] array
+  - [ ] `Vec<T>`
 - [ ] map
+  - [ ] `BTreeMap<T1: MsgPack, T2: MsgPack>`
+  - [ ] `HashMap<T: MsgPack>`
 - [ ] binary
+  - [ ] `Vec<u8>`
 - [ ] extension
   - [ ] timestamp
   - [ ] ext traits
