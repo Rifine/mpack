@@ -1,5 +1,3 @@
-use std::io::Write;
-
 use crate::format::MsgPackFormat;
 
 pub trait MsgPack {
