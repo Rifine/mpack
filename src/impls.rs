@@ -3,6 +3,35 @@ use crate::traits::MsgPack;
 use crate::format::MsgPackFormat;
 use MsgPackFormat::*;
 
+impl MsgPack for bool {
+    fn pack_format(&self) -> MsgPackFormat {
+        match self {
+            true => True,
+            false => False
+        }
+    }
+
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()> {
+        buff.write_all(&[self.pack_format() as u8])
+    }
+}
+
+impl<T: MsgPack> MsgPack for Option<T> {
+    fn pack_format(&self) -> MsgPackFormat {
+        match self {
+            Some(v) => v.pack_format(),
+            None => Nil
+        }
+    }
+
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()> {
+        match self {
+            Some(v) => v.pack_to(buff),
+            None => buff.write_all(&[Nil as u8])
+        }
+    }
+}
+
 impl MsgPack for u8 {
     #[inline]
     fn pack_format(&self) -> MsgPackFormat {
@@ -175,6 +204,64 @@ impl MsgPack for i64 {
                 buff.write_all(&[fmt as u8])?;
                 buff.write_all(&self.to_be_bytes())
             }
+        }
+    }
+}
+
+impl MsgPack for f32 {
+    fn pack_format(&self) -> MsgPackFormat {
+        F32
+    }
+
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()> {
+        buff.write_all(&[F32 as u8])?;
+        buff.write_all(&self.to_be_bytes())
+    }
+}
+
+impl MsgPack for f64 {
+    fn pack_format(&self) -> MsgPackFormat {
+        F64
+    }
+
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()> {
+        buff.write_all(&[F64 as u8])?;
+        buff.write_all(&self.to_be_bytes())
+    }
+}
+
+impl MsgPack for String {
+    fn pack_format(&self) -> MsgPackFormat {
+        match self.len() {
+            0..32 => FixStr,
+            32..0x100 => Str8,
+            0x100..0x10000 => Str16,
+            _ => Str32,
+        }
+    }
+
+    fn pack_to(&self, buff: &mut impl std::io::Write) -> std::io::Result<()> {
+        let len = self.len();
+        match len {
+            0..32 => {
+                buff.write_all(&[FixStr as u8 | len as u8])?;
+                buff.write_all(self.as_bytes())
+            },
+            32..0x100 => {
+                buff.write_all(&[Str8 as u8])?;
+                buff.write_all(&(len as u8).to_be_bytes())?;
+                buff.write_all(self.as_bytes())
+            },
+            0x100..0x10000 => {
+                buff.write_all(&[Str16 as u8])?;
+                buff.write_all(&(len as u16).to_be_bytes())?;
+                buff.write_all(self.as_bytes())
+            },
+            _ => {
+                buff.write_all(&[Str32 as u8])?;
+                buff.write_all(&(len as u32).to_be_bytes())?;
+                buff.write_all(self.as_bytes())
+            },
         }
     }
 }

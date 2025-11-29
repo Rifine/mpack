@@ -1,0 +1,16 @@
+# impl MsgPack for T
+- [x] bool
+- [ ] nil
+  - [ ] `Option::None`
+  - [ ] `nullptr`
+- [x] unsigned int(u8, u16, u32, u64)
+- [x] signed int(i8, i16, i32, i64)
+- [ ] float
+- [ ] string
+- [ ] array
+- [ ] map
+- [ ] binary
+- [ ] extension
+  - [ ] timestamp
+  - [ ] ext traits
+- [ ] deserialize system
