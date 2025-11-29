@@ -1,7 +1,7 @@
 
 #[repr(u8)]
 #[derive(Debug, Clone, Copy)]
-pub enum MsgPackFormat {
+pub enum PackFormat {
     PositiveFixInt = 0x00,
     FixMap = 0x80,
     FixArray = 0x90,
