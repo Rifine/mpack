@@ -1,9 +1,5 @@
 use super::*;
 
-const U8_LIMIT: usize = u8::MAX as usize + 1;
-const U16_LIMIT: usize = u16::MAX as usize + 1;
-const U32_LIMIT: usize = u32::MAX as usize + 1;
-
 impl Pack for String {
     fn pack_format(&self) -> PackFormat {
         match self.len() {

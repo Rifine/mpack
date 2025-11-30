@@ -1,9 +1,9 @@
 use super::{*, super::*};
 
-impl Pack for u16 {
+impl Pack for i8 {
     #[inline]
     fn pack_format(&self) -> PackFormat {
-        U16
+        I8
     }
 
     #[inline]
@@ -13,18 +13,26 @@ impl Pack for u16 {
     }
 }
 
-impl ConvertThenPack<u32> for u16 {
+impl ConvertThenPack<i16> for i8 {
     #[inline]
     fn convert_then_pack(&self, w: &mut impl Write) -> Result<()> {
-        let v = *self as u32;
+        let v = *self as i16;
         v.pack(w)
     }
 }
 
-impl ConvertThenPack<u64> for u16 {
+impl ConvertThenPack<i32> for i8 {
     #[inline]
     fn convert_then_pack(&self, w: &mut impl Write) -> Result<()> {
-        let v = *self as u64;
+        let v = *self as i32;
+        v.pack(w)
+    }
+}
+
+impl ConvertThenPack<i64> for i8 {
+    #[inline]
+    fn convert_then_pack(&self, w: &mut impl Write) -> Result<()> {
+        let v = *self as i64;
         v.pack(w)
     }
 }
