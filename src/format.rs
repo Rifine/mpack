@@ -1,23 +1,37 @@
-
-#[repr(u8)]
-#[derive(Debug, Clone, Copy)]
-pub enum PackFormat {
-    PositiveFixInt = 0x00,
-    FixMap = 0x80,
-    FixArray = 0x90,
-    FixStr = 0xa0,
-    Nil = 0xc0,
-    Reserved,
-    False,
-    True,
-    Bin8,       Bin16,      Bin32,
-    Ext8,       Ext16,      Ext32,
-    F32,        F64,
-    U8,         U16,        U32,        U64,
-    I8,         I16,        I32,        I64,
-    FixExt1,    FixExt2,    FixExt4,    FixExt8,    FixExt16,
-    Str8,       Str16,      Str32,
-    Array16,    Array32,
-    Map16,      Map32,
-    NegativeFixInt,
-}
+pub const POS_FIX_INT: u8 = 0x00;
+pub const FIX_MAP: u8 = 0x80;
+pub const FIX_ARRAY: u8 = 0x90;
+pub const FIX_STR: u8 = 0xa0;
+pub const NIL: u8 = 0xc0;
+// pub const RESERVED: u8 = 0xc1;
+pub const FALSE: u8 = 0xc2;
+pub const TRUE: u8 = 0xc3;
+pub const BIN8: u8 = 0xc4;
+pub const BIN16: u8 = 0xc5;
+pub const BIN32: u8 = 0xc6;
+pub const EXT8: u8 = 0xc7;
+pub const EXT16: u8 = 0xc8;
+pub const EXT32: u8 = 0xc9;
+pub const F32: u8 = 0xca;
+pub const F64: u8 = 0xcb;
+pub const U8: u8 = 0xcc;
+pub const U16: u8 = 0xcd;
+pub const U32: u8 = 0xce;
+pub const U64: u8 = 0xcf;
+pub const I8: u8 = 0xd0;
+pub const I16: u8 = 0xd1;
+pub const I32: u8 = 0xd2;
+pub const I64: u8 = 0xd3;
+pub const FIX_EXT1: u8 = 0xd4;
+pub const FIX_EXT2: u8 = 0xd5;
+pub const FIX_EXT4: u8 = 0xd6;
+pub const FIX_EXT8: u8 = 0xd7;
+pub const FIX_EXT16: u8 = 0xd8;
+pub const STR8: u8 = 0xd9;
+pub const STR16: u8 = 0xda;
+pub const STR32: u8 = 0xdb;
+pub const ARRAY16: u8 = 0xdc;
+pub const ARRAY32: u8 = 0xdd;
+pub const MAP16: u8 = 0xde;
+pub const MAP32: u8 = 0xdf;
+pub const NEG_FIX_INT: u8 = 0xe0;
