@@ -90,3 +90,61 @@ impl PackAs<u64> for u64 {
         Ok(())
     }
 }
+
+impl PackAs<i8> for i8 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        buff.write_all(&[Self::MARKER, self.to_be_bytes()[0]])?;
+        Ok(())
+    }
+}
+
+impl PackAs<i16> for i16 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        let bytes: [u8; 2] = self.to_be_bytes();
+        let bytes: [u8; 3] = [Self::MARKER, bytes[0], bytes[1]];
+        buff.write_all(&bytes)?;
+        Ok(())
+    }
+}
+
+impl PackAs<i32> for i32 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        let bytes: [u8; 4] = self.to_be_bytes();
+        let bytes: [u8; 5] = [Self::MARKER, bytes[0], bytes[1], bytes[2], bytes[3]];
+        buff.write_all(&bytes)?;
+        Ok(())
+    }
+}
+
+impl PackAs<i64> for i64 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        let bytes: [u8; 8] = self.to_be_bytes();
+        let bytes: [u8; 9] = [Self::MARKER, bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]];
+        buff.write_all(&bytes)?;
+        Ok(())
+    }
+}
+
+impl PackAs<f32> for f32 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        let bytes: [u8; 4] = self.to_be_bytes();
+        let bytes: [u8; 5] = [Self::MARKER, bytes[0], bytes[1], bytes[2], bytes[3]];
+        buff.write_all(&bytes)?;
+        Ok(())
+    }
+}
+
+impl PackAs<f64> for f64 {
+    #[inline(always)]
+    fn pack_as(&self, buff: &mut impl Write) -> Result<()> {
+        let bytes: [u8; 8] = self.to_be_bytes();
+        let bytes: [u8; 9] = [Self::MARKER, bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]];
+        buff.write_all(&bytes)?;
+        Ok(())
+    }
+}
